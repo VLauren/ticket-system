@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from .utils import generate_ticket_id
+from .utils import generate_ticket_id, generate_qr_code
 from .models import save_ticket
 
 main = Blueprint('main', __name__)
@@ -16,6 +16,8 @@ def reserve():
     ticket_id = generate_ticket_id()
 
     save_ticket(ticket_id, name, email)
+
+    qr_path = generate_qr_code(ticket_id)
 
     return redirect(url_for('main.success'))
 
