@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 from .utils import generate_ticket_id
 from .models import save_ticket
 
@@ -17,4 +17,9 @@ def reserve():
 
     save_ticket(ticket_id, name, email)
 
-    return f"Entrada reservada para {name}"
+    return redirect(url_for('main.success'))
+
+@main.route('/success')
+def success():
+    return render_template('success.html')
+
