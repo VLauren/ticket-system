@@ -18,8 +18,10 @@ def reserve():
     save_ticket(ticket_id, name, email)
 
     qr_path = generate_qr_code(ticket_id)
+    qr_url = url_for('static', filename=f"qrcodes/{ticket_id}.png")
 
-    return redirect(url_for('main.success'))
+    return render_template("success.html", qr_path=qr_url)
+    # return redirect(url_for('main.success'))
 
 @main.route('/success')
 def success():
