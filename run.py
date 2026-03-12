@@ -1,11 +1,11 @@
 from flask import Flask
-from flask_mail import Mail
 from app.routes import main
+from app.extensions import mail
 
 app = Flask(__name__)
 app.config.from_object("app.config")
 
-mail = Mail(app)
+mail.init_app(app)
 
 app.register_blueprint(main)
 

@@ -31,4 +31,13 @@ def send_ticket_email(email, ticket_id):
 
     msg.body = f"Id de tu entrada: {ticket_id}"
 
+    qr_path = os.path.join("static/qrcodes", f"{ticket_id}.png")
+
+    with open(qr_path, "rb") as f:
+        msg.attach(
+            filename = f"{ticket_id}.png",
+            content_type = "image/png",
+            data = f.read()
+            )
+
     mail.send(msg)
