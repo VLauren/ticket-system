@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request
 from .utils import generate_ticket_id
+from .models import save_ticket
 
 main = Blueprint('main', __name__)
 
@@ -14,4 +15,6 @@ def reserve():
     
     ticket_id = generate_ticket_id()
 
-    return f"Recibido reserva para {name} con ticket {ticket_id}"
+    save_ticket(ticket_id, name, email)
+
+    return f"Entrada reservada para {name}"
