@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from .utils import generate_ticket_id, generate_qr_code, send_ticket_email
+from .utils import generate_ticket_id, generate_qr_code, send_ticket_email, generate_ticket_pdf
 from .models import save_ticket, get_ticket, mark_ticket_as_used
 
 main = Blueprint('main', __name__)
@@ -18,9 +18,11 @@ def reserve():
     save_ticket(ticket_id, name, email)
 
     qr_path = generate_qr_code(ticket_id)
+    pdf_path = generate_ticket_pdf(ticket_id, name)
     qr_url = url_for('static', filename=f"qrcodes/{ticket_id}.png")
 
-    send_ticket_email(email, ticket_id)
+    # send_ticket_email(email, ticket_id)
+    send_ticket_email(email, ticket_id, pdf_path)
 
     return render_template("success.html", qr_path=qr_url)
     # return redirect(url_for('main.success'))

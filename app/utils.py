@@ -7,6 +7,7 @@ from flask_mail import Message
 from flask import current_app
 from .extensions import mail
 from reportlab.lib.pagesizes import A6
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
 
 def generate_ticket_id():
@@ -27,7 +28,7 @@ def generate_qr_code(ticket_id):
 
 def generate_ticket_pdf(ticket_id, name):
 
-    os.makedirs("tickets", exist_ok=true)
+    os.makedirs("tickets", exist_ok=True)
 
     qr_img = qrcode.make(ticket_id)
 
@@ -40,20 +41,23 @@ def generate_ticket_pdf(ticket_id, name):
     c = canvas.Canvas(pdf_path, pagesize=A6)
 
     c.setFont("Helvetica-Bold", 16)
-    c.drawCenteredString(210/2, 280, "Entrada")
+    c.drawCentredString(297/2, 420-50, "ENTRADA")
 
     c.setFont("Helvetica", 12)
-    c.drawString(20, 240, f"Nombre: {name}")
-    c.drawString(20, 240, f"Codigo de entrada: {ticket_id}")
+    c.drawString(30, 320, f"Nombre: {name}")
+    c.drawString(30, 280, "Codigo de entrada:")
+    c.setFont("Helvetica", 10)
+    c.drawString(30, 260, f"{ticket_id}")
 
-    c.drawImage(qr_buffer, 60, 80, width=90, height=90)
+    qr_image = ImageReader(qr_buffer)
+    c.drawImage(qr_image, (297/2)-(150/2), 60, width=150, height=150)
 
     c.showPage()
     c.save()
 
     return pdf_path
 
-def send_ticket_email(email, ticket_id):
+def send_ticket_email(email, ticket_id, pdf_path):
 
     msg = Message(
         subject="Tu entrada",
@@ -62,12 +66,12 @@ def send_ticket_email(email, ticket_id):
 
     msg.body = f"Id de tu entrada: {ticket_id}"
 
-    qr_path = os.path.join("static/qrcodes", f"{ticket_id}.png")
+    # qr_path = os.path.join("static/qrcodes", f"{ticket_id}.png")
 
-    with open(qr_path, "rb") as f:
+    with open(pdf_path, "rb") as f:
         msg.attach(
-            filename = f"{ticket_id}.png",
-            content_type = "image/png",
+            filename = "entrada.pdf",
+            content_type = "application/pdf",
             data = f.read()
             )
 
