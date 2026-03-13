@@ -10,4 +10,5 @@ mail.init_app(app)
 app.register_blueprint(main)
 
 if __name__ == '__main__':
+    # app.run(host="0.0.0.0", port=5000, debug=True, ssl_context=("192.168.1.9.pem", "192.168.1.9-key.pem"))
     app.run(host="0.0.0.0", port=5000, debug=True)
