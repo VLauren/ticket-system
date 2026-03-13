@@ -27,5 +27,12 @@ def reserve():
 
 @main.route('/success')
 def success():
-    return render_template('success.html')
+    return render_template("success.html")
 
+@main.route('/scan')
+def scan():
+    return render_template("scan.html")
+
+@main.route('/ticket/<ticket_id>')
+def ticket(ticket_id):
+    return f"Entrada escaneada: {ticket_id}"
