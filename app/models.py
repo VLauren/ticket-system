@@ -24,10 +24,21 @@ def save_ticket(ticket_id, name, email):
 
     return new_ticket
 
-def get_ticket(ticket_id)
+def get_ticket(ticket_id):
     init_csv()
     df = pd.read_csv(CSV_FILE)
-    ticket = df[df["id"] = ticket_id]
+    ticket = df[df["id"] == ticket_id]
     if ticket.empty:
         return None
     return ticket.iloc[0].to_dict()
+
+def mark_ticket_as_used(ticket_id):
+    df = pd.read_csv(CSV_FILE)
+    index = df.index[df["id"] == ticket_id]
+
+    if len(index) == 0:
+        return False
+
+    df.loc[index, "used"] = True
+    df.to_csv(CSV_FILE, index=False)
+    return True
