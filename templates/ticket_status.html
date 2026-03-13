@@ -1,5 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
 
-<h1>Validacion de entrada</h1>
-<p>ID de entrada: {{ ticket_id }}</p>
-<p>Estado: {{ status }}</p>
-<a href="/scan">Escanear siguiente entrada</a>
+<div class="row justify-content-center">
+<div class="col-md-6">
+<div class="card p-4 shadow">
+
+<h2>Validacion de entrada</h2>
+
+<p><strong>ID:</strong> {{ ticket_id }}</p>
+
+{% if status == "Entrada valida" %}
+<div class="alert alert-success">Entrada valida</div>
+{% elif status == "Entrada ya validada" %}
+<div class="alert alert-danger">Entrada ya validada</div>
+{% else %}
+<div class="alert alert-warning">Entrada no valida</div>
+{% endif %}
+
+<a href="/scan" class="btn btn-primary mt-3">Escanear siguiente entrada</a>
+
+</div>
+</div>
+</div>
+
+{% endblock %}
+

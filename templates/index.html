@@ -1,21 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Reserva de entrada</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<h1>Reserva de entrada</h1>
+{% block content %}
 
-<form action="/reserve" method="post">
-	<label>Nombre:</label>
-	<input type="text" name="name" required>
+<h1 class="text-center mb-4">Reserva de entrada</h1>
 
-	<label>Email:</label>
-	<input type="email" name="email" required>
+<div class="row justify-content-center">
+	<div class="col-md-6">
 
-	<button type="submit">Reserva</button>
-</form>
+		<div class="card p-4 shadow">
 
-</body>
-</html>
+			<form action="/reserve" method="post">
+				<div class="mb-3">
+				<label class="form-label">Nombre</label>
+				<input type="text" name="name" class="form-control" required>
+				</div>
+
+				<div class="mb-3">
+				<label class="form-label">Email</label>
+				<input type="email" name="email" class="form-control" required>
+				</div>
+
+				<button type="submit" class="btn btn-primary w-100">
+					Reservar entrada
+				</button>
+			</form>
+
+		</div>
+
+	</div>
+</div>
+
+{% endblock %}

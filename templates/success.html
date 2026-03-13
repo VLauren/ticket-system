@@ -1,13 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Entrada Reservada</title>
-</head>
+{% extends "base.html" %}
+{% block content %}
 
-<h1>Reserva confirmada</h1>
-<p>Su entrada ha sido reservada.</p>
+<div class="row justify-content-center">
+<div class="col-md-6">
+<div class="card p-4 shadow">
 
-<img src="{{ qr_path }}">
+<h2>Reserva confirmada</h2>
 
-</body>
-</html>
+<p>Tu entrada ha sido reservada.</p>
+<p>Revisa tu correo para ver la entrada.</p>
+
+<img src="{{ qr_path }}" class="img-fluid mt-3">
+
+</div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,6 +1,19 @@
-<h1>Valida entrada</h1>
+{% extends "base.html" %}
+{% block content %}
+
+<h1 class="text-center mb-4">Escanear entrada</h1>
+
+<div class="row justify-content-center">
+<div class="col-md-6">
+<div class="card p-3 shadow">
 
 <div id="reader"></div>
 
+</div>
+</div>
+</div>
+
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="/static/js/scanner.js"></script>
+
+{% endblock %}
