@@ -54,6 +54,6 @@ def ticket(ticket_id):
     else:
         mark_ticket_as_used(ticket_id)
         status = "valid"
-    return render_template("ticket_status.html", ticket_id=ticket_id, status=status)
+    return render_template("ticket_status.html", ticket_id=ticket_id, status=status, scan_day=scan_day)
     return f"Entrada escaneada: {ticket_id}"
 

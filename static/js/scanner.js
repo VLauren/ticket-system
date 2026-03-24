@@ -7,7 +7,7 @@ function onScanSuccess(decodedText)
 
 	scanned = true;
 	const ticketId = decodedText;
-	window.location.href = "/ticket/" + ticketId + "?day=$" + scanDay;
+	window.location.href = "/ticket/" + ticketId + "?day=" + scanDay;
 }
 
 const scanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 250});
