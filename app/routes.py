@@ -42,14 +42,18 @@ def scan2():
 
 @main.route('/ticket/<ticket_id>')
 def ticket(ticket_id):
+    scan_day = request.args.get('day')
+
     ticket = get_ticket(ticket_id)
     if ticket is None:
-        status = "Entrada no valida"
+        status = "invalid"
+    elif str(ticket["day"]) != str(scan_day):
+        status = "wrong_day"
     elif ticket["used"]:
-        status = "Entrada ya validada"
+        status = "already_used"
     else:
         mark_ticket_as_used(ticket_id)
-        status = "Entrada valida"
+        status = "valid"
     return render_template("ticket_status.html", ticket_id=ticket_id, status=status)
     return f"Entrada escaneada: {ticket_id}"
 

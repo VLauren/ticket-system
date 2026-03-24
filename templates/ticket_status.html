@@ -9,12 +9,17 @@
 
 <p><strong>ID:</strong> {{ ticket_id }}</p>
 
-{% if status == "Entrada valida" %}
-<div class="alert alert-success">Entrada valida</div>
-{% elif status == "Entrada ya validada" %}
+{% if status == "valid" %}
+<div class="alert alert-success">Entrada válida</div>
+
+{% elif status == "already_used" %}
 <div class="alert alert-danger">Entrada ya validada</div>
+
+{% elif status == "wrong_day" %}
+<div class="alert alert-warning">Entrada para otro día</div>
+
 {% else %}
-<div class="alert alert-warning">Entrada no valida</div>
+<div class="alert alert-secondary">Entrada no valida</div>
 {% endif %}
 
 <a href="/scan" class="btn btn-primary mt-3">Escanear siguiente entrada</a>
