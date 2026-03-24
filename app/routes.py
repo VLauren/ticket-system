@@ -19,7 +19,7 @@ def reserve():
     save_ticket(ticket_id, name, email, day)
 
     qr_path = generate_qr_code(ticket_id)
-    pdf_path = generate_ticket_pdf(ticket_id, name)
+    pdf_path = generate_ticket_pdf(ticket_id, name, day)
     qr_url = url_for('static', filename=f"qrcodes/{ticket_id}.png")
 
     # send_ticket_email(email, ticket_id)
@@ -32,9 +32,13 @@ def reserve():
 def success():
     return render_template("success.html")
 
-@main.route('/scan')
-def scan():
-    return render_template("scan.html")
+@main.route('/scan1')
+def scan1():
+    return render_template("scan.html", day=1)
+
+@main.route('/scan2')
+def scan2():
+    return render_template("scan.html", day=2)
 
 @main.route('/ticket/<ticket_id>')
 def ticket(ticket_id):

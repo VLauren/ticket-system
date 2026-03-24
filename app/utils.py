@@ -26,7 +26,7 @@ def generate_qr_code(ticket_id):
 
     return filepath
 
-def generate_ticket_pdf(ticket_id, name):
+def generate_ticket_pdf(ticket_id, name, day):
 
     os.makedirs("tickets", exist_ok=True)
 
@@ -44,7 +44,8 @@ def generate_ticket_pdf(ticket_id, name):
     c.drawCentredString(297/2, 420-50, "ENTRADA")
 
     c.setFont("Helvetica", 12)
-    c.drawString(30, 320, f"Nombre: {name}")
+    c.drawString(30, 330, f"Día {day}")
+    c.drawString(30, 310, f"Nombre: {name}")
     c.drawString(30, 280, "Codigo de entrada:")
     c.setFont("Helvetica", 10)
     c.drawString(30, 260, f"{ticket_id}")
