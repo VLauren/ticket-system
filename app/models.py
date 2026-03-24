@@ -5,17 +5,18 @@ CSV_FILE = 'tickets.csv'
 
 def init_csv():
     if not os.path.exists(CSV_FILE):
-        df = pd.DataFrame(columns=['id', 'name', 'email', 'used'])
+        df = pd.DataFrame(columns=['id', 'name', 'email', 'used', 'day'])
         df.to_csv(CSV_FILE, index=False)
 
-def save_ticket(ticket_id, name, email):
+def save_ticket(ticket_id, name, email, day):
     init_csv()
 
     new_ticket = {
         'id': ticket_id,
         'name': name,
         'email': email,
-        'used': False
+        'used': False,
+        'day': int(day)
     }
         
     df = pd.read_csv(CSV_FILE)

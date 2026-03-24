@@ -12,10 +12,11 @@ def index():
 def reserve():
     name = request.form['name']
     email = request.form['email']
+    day = request.form['day']
     
     ticket_id = generate_ticket_id()
 
-    save_ticket(ticket_id, name, email)
+    save_ticket(ticket_id, name, email, day)
 
     qr_path = generate_qr_code(ticket_id)
     pdf_path = generate_ticket_pdf(ticket_id, name)
