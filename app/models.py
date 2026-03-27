@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-CSV_FILE = 'tickets.csv'
+CSV_FILE = 'data/tickets.csv'
 
 def init_csv():
     if not os.path.exists(CSV_FILE):
