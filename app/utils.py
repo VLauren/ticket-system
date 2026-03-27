@@ -28,7 +28,7 @@ def generate_qr_code(ticket_id):
 
 def generate_ticket_pdf(ticket_id, name, day):
 
-    os.makedirs("tickets", exist_ok=True)
+    # os.makedirs("tickets", exist_ok=True)
 
     qr_img = qrcode.make(ticket_id)
 
@@ -36,9 +36,10 @@ def generate_ticket_pdf(ticket_id, name, day):
     qr_img.save(qr_buffer, format="PNG")
     qr_buffer.seek(0)
 
-    pdf_path = f"tickets/{ticket_id}.pdf"
+    # pdf_path = f"tickets/{ticket_id}.pdf"
+    pdf_buffer = io.BytesIO()
 
-    c = canvas.Canvas(pdf_path, pagesize=A6)
+    c = canvas.Canvas(pdf_buffer, pagesize=A6)
 
     c.setFont("Helvetica-Bold", 16)
     c.drawCentredString(297/2, 420-50, "ENTRADA")
@@ -56,9 +57,11 @@ def generate_ticket_pdf(ticket_id, name, day):
     c.showPage()
     c.save()
 
-    return pdf_path
+    pdf_buffer.seek(0)
 
-def send_ticket_email(email, ticket_id, pdf_path):
+    return pdf_buffer
+
+def send_ticket_email(email, ticket_id, pdf_buffer):
 
     msg = Message(
         subject="Tu entrada",
@@ -69,11 +72,17 @@ def send_ticket_email(email, ticket_id, pdf_path):
 
     # qr_path = os.path.join("static/qrcodes", f"{ticket_id}.png")
 
-    with open(pdf_path, "rb") as f:
-        msg.attach(
+    # with open(pdf_path, "rb") as f:
+        # msg.attach(
+            # filename = "entrada.pdf",
+            # content_type = "application/pdf",
+            # data = f.read()
+            # )
+
+    msg.attach(
             filename = "entrada.pdf",
             content_type = "application/pdf",
-            data = f.read()
+            data = pdf_buffer.read()
             )
 
     mail.send(msg)
