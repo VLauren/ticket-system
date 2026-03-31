@@ -1,11 +1,12 @@
 import pandas as pd
 import os
+from datetime import datetime
 
 CSV_FILE = 'data/tickets.csv'
 
 def init_csv():
     if not os.path.exists(CSV_FILE):
-        df = pd.DataFrame(columns=['id', 'name', 'email', 'used', 'day'])
+        df = pd.DataFrame(columns=['id', 'name', 'email', 'used', 'day', 'created_at'])
         df.to_csv(CSV_FILE, index=False)
 
 def save_ticket(ticket_id, name, email, day):
@@ -16,7 +17,8 @@ def save_ticket(ticket_id, name, email, day):
         'name': name,
         'email': email,
         'used': False,
-        'day': int(day)
+        'day': int(day),
+        'created_at': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
         
     df = pd.read_csv(CSV_FILE)
