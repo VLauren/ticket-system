@@ -45,3 +45,15 @@ def mark_ticket_as_used(ticket_id):
     df.loc[index, "used"] = True
     df.to_csv(CSV_FILE, index=False)
     return True
+
+def get_all_tickets():
+    init_csv()
+    df = pd.read_csv(CSV_FILE)
+
+    if df.empty:
+        return []
+
+    df = df.sort_values('created_at', ascending=False)
+
+    return df.to_dict('records')
+
