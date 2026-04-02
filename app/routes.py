@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .utils import generate_ticket_id, generate_qr_code, send_ticket_email, generate_ticket_pdf
-from .models import save_ticket, get_ticket, mark_ticket_as_used
+from .models import save_ticket, get_ticket, mark_ticket_as_used, get_all_tickets
 
 main = Blueprint('main', __name__)
 
@@ -56,4 +56,9 @@ def ticket(ticket_id):
         status = "valid"
     return render_template("ticket_status.html", ticket_id=ticket_id, status=status, scan_day=scan_day)
     return f"Entrada escaneada: {ticket_id}"
+
+@main.route('/admin/tickets')
+def admin_tickets():
+    tickets = get_all_tickets()
+    return render_template("admin_tickets.html", tickets=tickets)
 
