@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .utils import generate_ticket_id, generate_qr_code, send_ticket_email, generate_ticket_pdf
-from .models import save_ticket, get_ticket, mark_ticket_as_used, get_all_tickets
+from .models import save_ticket, get_ticket, mark_ticket_as_used, get_all_tickets, delete_ticket
 
 main = Blueprint('main', __name__)
 
@@ -62,3 +62,7 @@ def admin_tickets():
     tickets = get_all_tickets()
     return render_template("admin_tickets.html", tickets=tickets)
 
+@main.route('/admin/tickets/<ticket_id>/delete', methods=['POST'])
+def delete_ticket_route(ticket_id):
+    delete_ticket(ticket_id)
+    return redirect(url_for('main.admin_tickets'))

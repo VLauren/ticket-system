@@ -18,6 +18,7 @@
             <th>Dia</th>
             <th>Fecha de reserva</th>
             <th>Estado</th>
+            <th>Borrar</th>
         </tr>
     </thread>
     <tbody>
@@ -34,6 +35,16 @@
                     <span class="badge bg-success">Válido</span>
                 {% endif %}
             </td>
+
+            <td>
+                <form action="{{ url_for('main.delete_ticket_route', ticket_id=ticket.id) }}" 
+                      method="POST"
+                      onsubmit="return confirm('¿Eliminar reserva de {{ ticket.name }}?');"
+                      style="display: inline;">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Borrar</button>
+                </form>
+            </td>
+
         </tr>
         {% endfor %}
     </tbody>
