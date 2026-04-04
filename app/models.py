@@ -46,6 +46,17 @@ def mark_ticket_as_used(ticket_id):
     df.to_csv(CSV_FILE, index=False)
     return True
 
+def delete_ticket(ticket_id):
+    init_csv()
+    df = pd.read_csv(CSV_FILE)
+    
+    if ticket_id not in df['id'].values:
+        return False
+    
+    df = df[df['id'] != ticket_id]
+    df.to_csv(CSV_FILE, index=False)
+    return True
+
 def get_all_tickets():
     init_csv()
     df = pd.read_csv(CSV_FILE)
