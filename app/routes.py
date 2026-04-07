@@ -17,8 +17,8 @@ def require_auth(f):
                     401,
                     {'WWW-Authenticate': 'Basic realm="Contraseña requerida"'}
                 )
-            return f(*args, **kwargs)
-        return decorated
+        return f(*args, **kwargs)
+    return decorated
 
 @main.route('/')
 def index():
@@ -54,10 +54,12 @@ def success():
     return render_template("success.html")
 
 @main.route('/scan1')
+@require_auth
 def scan1():
     return render_template("scan.html", day=1)
 
 @main.route('/scan2')
+@require_auth
 def scan2():
     return render_template("scan.html", day=2)
 
@@ -79,6 +81,7 @@ def ticket(ticket_id):
     return f"Entrada escaneada: {ticket_id}"
 
 @main.route('/admin/tickets')
+@require_auth
 def admin_tickets():
     tickets = get_all_tickets()
     return render_template("admin_tickets.html", tickets=tickets)
