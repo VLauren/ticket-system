@@ -2,8 +2,23 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from .utils import generate_ticket_id, generate_qr_code, send_ticket_email, generate_ticket_pdf
 from .models import email_has_ticket_for_day, save_ticket, get_ticket, mark_ticket_as_used, \
         get_all_tickets, delete_ticket, email_has_ticket_for_day, tickets_available_for_day
+from functools import wraps
+from flask import request, Response
 
 main = Blueprint('main', __name__)
+
+def require_auth(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth or auth.password != 'pass':
+            return Response(
+                    'Acceso denegado',
+                    401,
+                    {'WWW-Authenticate': 'Basic realm="Contraseña requerida"'}
+                )
+            return f(*args, **kwargs)
+        return decorated
 
 @main.route('/')
 def index():
