@@ -68,11 +68,18 @@ def generate_ticket_pdf(ticket_id, name, day):
     # c.drawString(30, 260, f"{ticket_id}")
 
     qr_image = ImageReader(qr_buffer)
-    c.drawImage(qr_image, (297/2)-(150/2), 60, width=150, height=150)
+    c.drawImage(qr_image, (297/2)-(150/2), 75, width=150, height=150)
     # c.drawImage(qr_image, (297/2)-(120/2), 100, width=120, height=120)
 
     c.setFont("Helvetica", 9)
-    c.drawCentredString(297/2, 50, f"ID: {ticket_id}")
+    c.drawCentredString(297/2, 65, f"ID: {ticket_id}")
+
+    c.setFont("Helvetica", 8)
+    c.setFillColorRGB(0.4, 0.4, 0.4)
+    c.drawCentredString(297/2, 45, "Asoc. Cultural sin Ánimo de Lucro")
+    c.drawCentredString(297/2, 35, "Donaciones en efectivo bienvenidas")
+    c.drawCentredString(297/2, 25, "@telonautasteatro")
+
 
     c.showPage()
     c.save()
