@@ -44,7 +44,7 @@ def reserve():
     # qr_url = url_for('static', filename=f"qrcodes/{ticket_id}.png")
 
     # send_ticket_email(email, ticket_id)
-    send_ticket_email(email, ticket_id, pdf_buffer)
+    send_ticket_email(email, ticket_id, pdf_buffer, day)
 
     return render_template("success.html")
     # return redirect(url_for('main.success'))

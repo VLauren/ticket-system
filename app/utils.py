@@ -81,14 +81,38 @@ def generate_ticket_pdf(ticket_id, name, day):
 
     return pdf_buffer
 
-def send_ticket_email(email, ticket_id, pdf_buffer):
+def send_ticket_email(email, ticket_id, pdf_buffer, day):
 
     msg = Message(
-        subject="Tu entrada",
+        subject="Tu entrada - Telonautas",
+        sender="telonautasteatro@gmail.com",
         recipients=[email],
     )
 
-    msg.body = f"Id de tu entrada: {ticket_id}"
+    dates = {1: "29 de Mayo", 2: "30 de Mayo"}
+    date_str = dates.get(int(day), f"Día {day}")
+
+    msg.body = f"""¡Hola!
+
+Gracias por reservar para Memorias de una Bruja Mala.
+
+Somos una Asociación Cultural sin Ánimo de Lucro.
+La entrada es gratuita. Si deseas apoyarnos, 
+aceptamos donaciones en efectivo en la puerta.
+
+📅 {date_str} - 19:00 h
+📍 Caja Blanca, Málaga
+🚪 Puertas: 18:30 h
+
+Tu entrada está adjunta. Muéstrala en la puerta 
+(impresa o desde el móvil).
+
+¡Gracias por venir!
+
+---
+@telonautasteatro
+telonautasteatro@gmail.com
+"""
 
     msg.attach(
             filename = "entrada.pdf",
