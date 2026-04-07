@@ -90,3 +90,7 @@ def admin_tickets():
 def delete_ticket_route(ticket_id):
     delete_ticket(ticket_id)
     return redirect(url_for('main.admin_tickets'))
+
+@main.route('/privacidad')
+def privacidad():
+    return render_template("privacidad.html")

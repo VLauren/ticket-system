@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 
 CSV_FILE = 'data/tickets.csv'
-MAX_TICKETS_PER_DAY = 200
+MAX_TICKETS_PER_DAY = 188
 
 def init_csv():
     if not os.path.exists(CSV_FILE):

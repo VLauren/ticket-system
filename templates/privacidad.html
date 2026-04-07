@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h1 class="mb-4">Política de Privacidad</h1>
+        
+        <p>RESPONSABLE
+        <p>Telonautas (Asociación Cultural sin Ánimo de Lucro)</p>
+        <p>Contacto: telonautasteatro@gmail.com</p>
+        <p>&nbsp;</p>
+        
+        <p>FINALIDAD</p>
+        <p>Gestionar tu reserva y enviarte la entrada por correo electrónico.</p>
+        <p>&nbsp;</p>
+        
+        <p>LEGITIMACIÓN</p>
+        <p>Tu consentimiento, marcando la casilla correspondiente en el formulario.</p>
+        <p>&nbsp;</p>
+        
+        <p>DESTINATARIOS</p>
+        <p>Nadie más. Los datos no se comparten con terceros.</p>
+        <p>&nbsp;</p>
+        
+        <p>TUS DERECHOS</p>
+        <p>Puedes pedirnos acceso, rectificación o borrado de tus datos escribiendo a telonautasteatro@gmail.com</p>
+        <p>&nbsp;</p>
+        
+        <p>PLAZO DE CONSERVACIÓN</p>
+        <p>Los datos se eliminarán 30 días después del evento.</p>
+        <p>&nbsp;</p>
+        
+        <p>SEGURIDAD</p>
+        <p>Los datos se almacenan en un servidor protegido con contraseña. Acceso restringido.</p>
+        <p>&nbsp;</p>
+        
+        <div class="mt-4 text-center">
+            <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary">Volver</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
