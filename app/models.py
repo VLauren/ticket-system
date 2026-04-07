@@ -1,8 +1,10 @@
+from numpy import empty
 import pandas as pd
 import os
 from datetime import datetime
 
 CSV_FILE = 'data/tickets.csv'
+MAX_TICKETS_PER_DAY = 200
 
 def init_csv():
     if not os.path.exists(CSV_FILE):
@@ -77,4 +79,17 @@ def get_all_tickets():
     df = df.sort_values('created_at', ascending=False)
 
     return df.to_dict('records')
+
+def count_tickets_for_day(day):
+    init_csv()
+    df = pd.read_csv(CSV_FILE)
+    
+    if(df.empty):
+        return 0
+
+    count = len(df[df['day'] == int(day)])
+    return count
+
+def tickets_available_for_day(day):
+    return count_tickets_for_day(day) < MAX_TICKETS_PER_DAY
 
