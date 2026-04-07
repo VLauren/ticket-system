@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="row justify-content-center">
-<div class="col-md-6">
-<div class="card p-4 shadow">
-
-<h2>Reserva confirmada</h2>
-
-<p>Tu entrada ha sido reservada.</p>
-<p>Revisa tu correo para ver la entrada.</p>
+<div class="text-center">
+    <h1 class="mb-4">✅ ¡Reserva confirmada!</h1>
+    
+    <p class="lead">Hemos enviado tu entrada a tu correo.</p>
+    
+    <div class="alert alert-info">
+        <strong>Si no la recibes:</strong> Revisa tu carpeta de <strong>spam</strong> o correo no deseado.<br>
+        <small>De: telonautasteatro@gmail.com | Asunto: Tu entrada - Telonautas</small>
+    </div>
+    
+    <p class="text-muted">Guarda el PDF adjunto en el correo. Muéstralo en la puerta (impreso o desde el móvil).</p>
+    
+    <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary mt-3">Volver al inicio</a>
+</div>
 
 <!-- img src="{{ qr_path }}" class="img-fluid mt-3" -->
 

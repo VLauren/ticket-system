@@ -41,12 +41,12 @@ def reserve():
 
     qr_path = generate_qr_code(ticket_id)
     pdf_buffer = generate_ticket_pdf(ticket_id, name, day)
-    qr_url = url_for('static', filename=f"qrcodes/{ticket_id}.png")
+    # qr_url = url_for('static', filename=f"qrcodes/{ticket_id}.png")
 
     # send_ticket_email(email, ticket_id)
     send_ticket_email(email, ticket_id, pdf_buffer)
 
-    return render_template("success.html", qr_path=qr_url)
+    return render_template("success.html")
     # return redirect(url_for('main.success'))
 
 @main.route('/success')
