@@ -90,15 +90,6 @@ def send_ticket_email(email, ticket_id, pdf_buffer):
 
     msg.body = f"Id de tu entrada: {ticket_id}"
 
-    # qr_path = os.path.join("static/qrcodes", f"{ticket_id}.png")
-
-    # with open(pdf_path, "rb") as f:
-        # msg.attach(
-            # filename = "entrada.pdf",
-            # content_type = "application/pdf",
-            # data = f.read()
-            # )
-
     msg.attach(
             filename = "entrada.pdf",
             content_type = "application/pdf",
