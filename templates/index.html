@@ -46,6 +46,14 @@
 				</select>
 				</div>
 
+                <div class="mb-3 form-check">
+                    <input type="checkbox" name="consent" id="consent" class="form-check-input" 
+                           style="border: 1px solid #6c757d; width: 1.3em; height: 1.3em;" required>
+                    <label class="form-check-label ms-2" for="consent">
+                        He leído y acepto la <a href="{{ url_for('main.privacidad') }}" target="_blank">política de privacidad</a>
+                    </label>
+                </div>
+
 				<button type="submit" class="btn btn-primary w-100">
 					Reservar entrada
 				</button>
