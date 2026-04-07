@@ -64,7 +64,7 @@ def email_has_ticket_for_day(email, day):
     if df.empty:
         return False
 
-    match = df[(df['email'] == email) & (df['day'] == day)]
+    match = df[(df['email'] == email) & (df['day'] == int(day))]
     return not match.empty
 
 def get_all_tickets():

@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .utils import generate_ticket_id, generate_qr_code, send_ticket_email, generate_ticket_pdf
-from .models import save_ticket, get_ticket, mark_ticket_as_used, get_all_tickets, delete_ticket
+from .models import email_has_ticket_for_day, save_ticket, get_ticket, mark_ticket_as_used, \
+        get_all_tickets, delete_ticket, email_has_ticket_for_day
 
 main = Blueprint('main', __name__)
 
@@ -14,8 +15,10 @@ def reserve():
     email = request.form['email']
     day = request.form['day']
     
-    ticket_id = generate_ticket_id()
+    if email_has_ticket_for_day(email, day):
+        return render_template("index.html", error="Ya hay una reserva para ese día con este correo.")
 
+    ticket_id = generate_ticket_id()
     save_ticket(ticket_id, name, email, day)
 
     qr_path = generate_qr_code(ticket_id)
