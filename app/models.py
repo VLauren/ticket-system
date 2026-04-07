@@ -57,6 +57,16 @@ def delete_ticket(ticket_id):
     df.to_csv(CSV_FILE, index=False)
     return True
 
+def email_has_ticket_for_day(email, day):
+    init_csv()
+    df = pd.read_csv(CSV_FILE)
+
+    if df.empty:
+        return False
+
+    match = df[(df['email'] == email) & (df['day'] == day)]
+    return not match.empty
+
 def get_all_tickets():
     init_csv()
     df = pd.read_csv(CSV_FILE)
