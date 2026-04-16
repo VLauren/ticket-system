@@ -51,7 +51,10 @@ def generate_ticket_pdf(ticket_id, name, day):
     c.drawCentredString(297/2, 420-80, f"Día {day} - {date_str}")
 
     c.setFont("Helvetica", 11)
-    c.drawCentredString(297/2, 420-120, f"Caja Blanca 19:00 (apertura de puertas 18:30)")
+    hours = {1: "Caja Blanca 19:00 (apertura de puertas 18:30)", 2: "Caja Blanca 18:30 (apertura de puertas 18:00)"}
+    hours_str = hours.get(int(day), f"")
+
+    c.drawCentredString(297/2, 420-120, hours_str)
 
     c.line(35, 420-145, 262, 420-145)
 
@@ -97,22 +100,26 @@ def send_ticket_email(email, ticket_id, pdf_buffer, day):
     )
 
     dates = {1: "29 de Mayo", 2: "30 de Mayo"}
+    hours = {1: "19:00", 2: "18:30"}
+    gate_hours = {1: "18:30", 2: "18:00"}
     date_str = dates.get(int(day), f"Día {day}")
+    hours_str = hours.get(int(day), f"")
+    gate_hours_str = gate_hours.get(int(day), f"")
 
-    msg.body = f"""¡Hola!
+    msg.body = f"""¡Hola! 👋
 
-Gracias por reservar para Memorias de una Bruja Mala.
+Gracias por reservar tu invitación para `Memorias de una bruja mala', el musical que cuenta la verdadera historia de la malvada bruja de Oz. Las entradas no están numeradas.
 
-Somos una Asociación Cultural sin Ánimo de Lucro.
-La entrada es gratuita. Si deseas apoyarnos, 
-aceptamos donaciones en efectivo en la puerta.
+Nosotros somos Telonautas, una Asociación Cultural sin Ánimo de Lucro con muchas ganas de hacer teatro pero que no cuenta con ningún apoyo. 
 
-📅 {date_str} - 19:00 h
+Si deseas apoyarnos, aceptaremos donaciones voluntarias en efectivo en una hucha que pondremos tras la función 🙏, ¡para que lo tengas en cuenta! Cualquier ayuda nos hará seguir disfrutando y hacer disfrutar del teatro 🎭❤️ 
+
+
+📅 {date_str} - {hours_str} h
 📍 Caja Blanca, Málaga
-🚪 Puertas: 18:30 h
+🚪 Puertas: {gate_hours_str} h
 
-Tu entrada está adjunta. Muéstrala en la puerta 
-(impresa o desde el móvil).
+Tu entrada está adjunta en este mail. Muestra el código en la puerta para que te lo escaneen (impresa o desde el móvil). Si al final no puedes asistir, comunicalo en este mismo mail.
 
 ¡Gracias por venir!
 
