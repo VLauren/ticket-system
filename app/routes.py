@@ -37,16 +37,8 @@ def reserve():
     if remaining <= 0:
         return render_template("index.html", error="Ya tienes 4 entradas para este día.")
     if quantity > remaining:
-        return render_template("index.html", error=f"Solo puedes reservar {remaining} entrada(s) más para este día.")
+        return render_template("index.html", error=f"Solo puedes reservar {remaining} entrada(s) más para ese día con ese correo.")
 
-    # existing_count = count_tickets_for_email(email, day)
-
-    # if existing_count + quantity > 4:
-        # remaining = 4 - existing_count
-        # if remaining <= 0:
-            # return render_template("index.html", error="Ya tienes 4 entradas para este día.")
-        # return render_template("index.html", error=f"Solo puedes reservar {remaining} entrada(s) más para este día.")
-    
     if not tickets_available_for_day(day):
         return render_template("index.html", error="Entradas agotadas para ese día")
     
@@ -63,22 +55,6 @@ def reserve():
     
     # Send email with PDF
     send_ticket_email(email, tickets, pdf_buffer, day)
-
-    #---
-
-    # if email_has_ticket_for_day(email, day):
-        # return render_template("index.html", error="Ya hay una reserva para ese día con este correo.")
-
-    # if not tickets_available_for_day(day):
-        # return render_template("index.html", error="Entradas agotadas para ese día")
-
-    # ticket_id = generate_ticket_id()
-    # save_ticket(ticket_id, name, email, day)
-
-    # qr_path = generate_qr_code(ticket_id)
-    # pdf_buffer = generate_ticket_pdf(ticket_id, name, day)
-
-    # send_ticket_email(email, ticket_id, pdf_buffer, day)
 
     return render_template("success.html")
 
