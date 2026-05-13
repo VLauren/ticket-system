@@ -69,6 +69,16 @@ def email_has_ticket_for_day(email, day):
     match = df[(df['email'] == email) & (df['day'] == int(day))]
     return not match.empty
 
+def count_tickets_for_email(email, day):
+    init_csv()
+    df = pd.read_csv(CSV_FILE)
+
+    if df.empty:
+        return False
+
+    matching = df[(df['email'] == email) & (df['day'] == int(day))]
+    return len(matching)
+
 def get_all_tickets():
     init_csv()
     df = pd.read_csv(CSV_FILE)
