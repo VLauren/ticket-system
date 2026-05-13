@@ -26,65 +26,58 @@ def generate_qr_code(ticket_id):
 
     return filepath
 
-def generate_ticket_pdf(ticket_id, name, day):
-
-    # os.makedirs("tickets", exist_ok=True)
-
-    qr_img = qrcode.make(ticket_id)
-
-    qr_buffer = io.BytesIO()
-    qr_img.save(qr_buffer, format="PNG")
-    qr_buffer.seek(0)
-
-    # pdf_path = f"tickets/{ticket_id}.pdf"
-    pdf_buffer = io.BytesIO()
+def generate_ticket_pdf(tickets, day):
 
     dates = {1: "29 de Mayo", 2: "30 de Mayo"}
     date_str = dates.get(int(day), f"Día {day}")
 
-    c = canvas.Canvas(pdf_buffer, pagesize=A6)
-
-    c.setFont("Helvetica-Bold", 16)
-    c.drawCentredString(297/2, 420-60, "ENTRADA")
-
-    c.setFont("Helvetica-Bold", 14)
-    c.drawCentredString(297/2, 420-80, f"Día {day} - {date_str}")
-
-    c.setFont("Helvetica", 11)
     hours = {1: "Caja Blanca 19:00 (apertura de puertas 18:30)", 2: "Caja Blanca 18:30 (apertura de puertas 18:00)"}
     hours_str = hours.get(int(day), f"")
 
-    c.drawCentredString(297/2, 420-120, hours_str)
+    pdf_buffer = io.BytesIO()
+    c = canvas.Canvas(pdf_buffer, pagesize=A6)
 
-    c.line(35, 420-145, 262, 420-145)
+    for ticket in tickets:
+        ticket_id = ticket['id']
+        name = ticket['name']
 
-    c.setFont("Helvetica-Bold", 12)
-    c.drawString(35, 420-175, "Nombre:")
-    c.setFont("Helvetica", 12)
-    c.drawString(95, 420-175, name)
-
-    # c.setFont("Helvetica", 12)
-    # c.drawString(30, 330, f"Día {day}")
-    # c.drawString(30, 310, f"Nombre: {name}")
-    # c.drawString(30, 280, "Codigo de entrada:")
-    # c.setFont("Helvetica", 10)
-    # c.drawString(30, 260, f"{ticket_id}")
-
-    qr_image = ImageReader(qr_buffer)
-    c.drawImage(qr_image, (297/2)-(150/2), 75, width=150, height=150)
-    # c.drawImage(qr_image, (297/2)-(120/2), 100, width=120, height=120)
-
-    c.setFont("Helvetica", 9)
-    c.drawCentredString(297/2, 65, f"ID: {ticket_id}")
-
-    c.setFont("Helvetica", 8)
-    c.setFillColorRGB(0.4, 0.4, 0.4)
-    c.drawCentredString(297/2, 45, "Asoc. Cultural sin Ánimo de Lucro")
-    c.drawCentredString(297/2, 35, "Donaciones en efectivo bienvenidas")
-    c.drawCentredString(297/2, 25, "@telonautasteatro")
+        qr_img = qrcode.make(ticket_id)
+        qr_buffer = io.BytesIO()
+        qr_img.save(qr_buffer, format="PNG")
+        qr_buffer.seek(0)
 
 
-    c.showPage()
+        c.setFont("Helvetica-Bold", 16)
+        c.drawCentredString(297/2, 420-60, "ENTRADA")
+
+        c.setFont("Helvetica-Bold", 14)
+        c.drawCentredString(297/2, 420-80, f"Día {day} - {date_str}")
+
+        c.setFont("Helvetica", 11)
+
+        c.drawCentredString(297/2, 420-120, hours_str)
+
+        c.line(35, 420-145, 262, 420-145)
+
+        c.setFont("Helvetica-Bold", 12)
+        c.drawString(35, 420-175, "Nombre:")
+        c.setFont("Helvetica", 12)
+        c.drawString(95, 420-175, name)
+
+        qr_image = ImageReader(qr_buffer)
+        c.drawImage(qr_image, (297/2)-(150/2), 75, width=150, height=150)
+
+        c.setFont("Helvetica", 9)
+        c.drawCentredString(297/2, 65, f"ID: {ticket_id}")
+
+        c.setFont("Helvetica", 8)
+        c.setFillColorRGB(0.4, 0.4, 0.4)
+        c.drawCentredString(297/2, 45, "Asoc. Cultural sin Ánimo de Lucro")
+        c.drawCentredString(297/2, 35, "Donaciones en efectivo bienvenidas")
+        c.drawCentredString(297/2, 25, "@telonautasteatro")
+
+        c.showPage()
+
     c.save()
 
     pdf_buffer.seek(0)
@@ -129,7 +122,7 @@ telonautasteatro@gmail.com
 """
 
     msg.attach(
-            filename = "entrada.pdf",
+            filename = "entradas.pdf",
             content_type = "application/pdf",
             data = pdf_buffer.read()
             )
