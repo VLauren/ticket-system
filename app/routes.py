@@ -93,7 +93,9 @@ def ticket(ticket_id):
 @require_auth
 def admin_tickets():
     tickets = get_all_tickets()
-    return render_template("admin_tickets.html", tickets=tickets)
+    day1count = sum(1 for t in tickets if int(t['day']) == 1)
+    day2count = sum(1 for t in tickets if int(t['day']) == 2)
+    return render_template("admin_tickets.html", tickets=tickets, day1count=day1count, day2count=day2count)
 
 @main.route('/admin/tickets/<ticket_id>/delete', methods=['POST'])
 def delete_ticket_route(ticket_id):
